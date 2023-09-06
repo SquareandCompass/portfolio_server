@@ -2,7 +2,9 @@ const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const { User } = require('../models');
 const { validateSession } = require('../middleware');
-const {success,incomplete,error,token} = require('../utils');
+const {
+    success,incomplete,error,token,passwordChange,verifyCode
+} = require('../utils');
 const SECRET = process.env.JWT;
 
 //* NOTE: Account creation is spun up from the Database. There shouldn't a way for users to create an account from the client side.
@@ -61,9 +63,13 @@ router.put('/profile', validateSession, async (req,res) => {
         const returnOption = {new:true};
 
         let changePassword = info.newPassword ? bcrypt.compare(info.password, req.user.password) : null;
+        //TODO: need to fix the changing password within the profile route. Currently not working.
 
         const updateInfo = {
+            firstName: info.firstName,
+            lastName: info.lastName,
             email: info.email,
+            backupEmail: info.backupEmail,
             password: changePassword ? bcrypt.hashSync(info.newPassword, 13) : null,
             facebook: info.facebook, 
             twitter: info.twitter, 
@@ -82,6 +88,34 @@ router.put('/profile', validateSession, async (req,res) => {
 });
 
 //! Password Reset
+router.post('/password-reset', async(req,res) => {
+    try {
+        const {email} = req.body;
+        const user = await User.findOne({email: email});
 
+        if(!user) throw new Error('Incorrect email');
+
+        verifyCode(email,user,true);
+
+        const package = {message: 'Email sent'};
+
+        user ? success(res,package) : incomplete(res);
+
+    } catch (err) {
+        error(res,err);
+    }
+})
+
+
+router.patch('/reset-password/:email/:code', async (req,res) => {
+    try {
+        
+        const { email, code } = req.params;
+        //TODO: Build out the logic of updating the user document.
+
+    } catch (err) {
+        error(res,err);
+    }
+});
 
 module.exports = router;

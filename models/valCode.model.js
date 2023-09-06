@@ -18,10 +18,7 @@ const ValidationCode = new mongoose.Schema({
         default: Date.now(),
         expires: 1200
     },
-    ownerId: {
-        type: mongoose.Types.ObjectId,
-        ref: 'user'
-    }
+    ownerId: String
 });
 
 module.exports = mongoose.model('validationCode', ValidationCode);

@@ -9,23 +9,66 @@ const passwordChange = async (user,oldPass,newPass) => {
     }
 };
 
-const verifyCode = async (email, user) => {
-    const createCode = `${user.lastName}${user.emailList.length}${user.firstName}${Date.now()}`;
+const verifyCode = async (email, user, val) => {
 
-    let url = `${process.env.URL}/reset-password/${email}/${createCode}`;
+    let url, subject, msg;
 
-    const emailCode = new ValCode({
-        email, code: createCode,
-        url,
-        ownerId: user._id
-    }).save();
+    if(val) {
+        const createCode = `${user.lastName}${user.emailList.length}${user.firstName}${Date.now()}`;
+    
+        url = `${process.env.URL}/reset-password/${email}/${createCode}`;
+    
+        const emailCode = new ValCode({
+            email, code: createCode,
+            url,
+            ownerId: user._id
+        }).save();
+    
+        subject = "Portfolio Password Reset";
+        msg = `
+            <p>Please click the <a href="${url}">link</a>.</p>
+            <br/>
+            <p>If the link doesn't work, please use this: ${url}</p>
+        `
+    }
 
-    let subject = "Portfolio Password Reset";
-    let msg = "Click the link to reset your password."
+    if(!val) {
+        //TODO: need to build out the process of email validation response.
+    }
 
-    //TODO: Need to build out the email notification.
+    sendEmail(user, subject, msg)
+}
+
+const sendEmail = async (user, subject,msg) => {
+
+    // Should have two types of emails, one to the admin for password reset and one for email verification after a client sends a message.
+
+    const fullName = `${user.firstName} ${user.lastName}`;
+    try {
+        
+        const transporter = nodemailer.createTransport({
+            service: process.env.SERVICE,
+            secure: true,
+            auth: {
+                user: process.env.USER,
+                pass: process.env.PASS
+            }
+        });
+
+        const email = await transporter.sendMail({
+            from: "Personal Portfolio",
+            to: user.email,
+            subject: subject,
+            html: msg
+        })
+
+        //Using an email variable if needing to access the transporter object.
+
+    } catch (err) {
+        console.error(err, "Email not sent.")
+    }
 }
 
 module.exports = {
-    passwordChange
+    passwordChange, verifyCode
 }
