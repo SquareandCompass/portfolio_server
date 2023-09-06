@@ -10,12 +10,12 @@ const SECRET = process.env.JWT;
 router.post('/create-account', async (req,res) => {
     try {
         
-        const {email, password, passwordCheck} = req.body;
+        const {email, backupEmail, password, passwordCheck} = req.body;
 
         if(password !== passwordCheck) throw new Error('Please make sure that your password matches the check');
 
         const user = await new User({
-            email,
+            email, backupEmail,
             password: bcrypt.hashSync(password, 13)
         }).save();
 
@@ -82,5 +82,6 @@ router.put('/profile', validateSession, async (req,res) => {
 });
 
 //! Password Reset
+
 
 module.exports = router;
