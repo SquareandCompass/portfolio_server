@@ -13,7 +13,8 @@ const Project = new mongoose.Schema({
         type: String,
         unique: true
     },
-    details: String
+    details: String,
+    logo: String
 });
 
 module.exports = mongoose.model('project', Project);

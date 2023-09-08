@@ -35,6 +35,8 @@ const User = new mongoose.Schema({
     instagram: String,
     avatar: String,
     logo: String,
+    bio: String,
 });
+// set virtuals for full name and other aspects that may be useful.
 
 module.exports = mongoose.model('user', User);
