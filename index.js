@@ -7,7 +7,9 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 4001;
 const db = require('./db');
-const { userController } = require('./controllers');
+const { 
+    userController, messageController 
+} = require('./controllers');
 // placeholder for utils
 // placeholder for middleware
 
@@ -17,7 +19,7 @@ app.use(cors());
 
 //! Routes
 app.use('/admin', userController);
-
+app.use('/message', messageController);
 // placeholder for individual routes
 
 //! Connections

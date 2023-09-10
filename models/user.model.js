@@ -38,7 +38,7 @@ const User = new mongoose.Schema({
     bio: String,
 },{
     virtuals: {
-        fullName: { //NOTE: Testing
+        fullName: {
             get() {
                 return `${this.firstName} ${this.lastName}`
             }
@@ -59,7 +59,5 @@ const User = new mongoose.Schema({
         }
     }    
 });
-
-// User.virtual('fullName').get(() => `${this.firstName} ${this.lastName}`);
 
 module.exports = mongoose.model('user', User);

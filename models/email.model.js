@@ -8,7 +8,7 @@ const Email = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    messages: [Object],
+    messages: [String],
     blogSub: {
         type: Boolean,
         default: false,

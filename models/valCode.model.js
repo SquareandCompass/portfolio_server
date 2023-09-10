@@ -17,6 +17,9 @@ const ValidationCode = new mongoose.Schema({
     ownerId: {
         type: String,
         required: true
+    },
+    message: {
+        type: String
     }
 });
 

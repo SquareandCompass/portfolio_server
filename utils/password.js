@@ -9,7 +9,7 @@ const passwordChange = async (user,oldPass,newPass) => {
     }
 };
 
-const verifyCode = async (email, user, val) => {
+const verifyCode = async (email, user, val, clientMessage) => {
 
     let url, subject, msg;
     const eightDigitCode = Math.random().toString(36).substring(2,10);
@@ -19,7 +19,8 @@ const verifyCode = async (email, user, val) => {
     const emailCode = new ValCode({
         email, 
         code: eightDigitCode,
-        ownerId: user._id
+        ownerId: user._id,
+        message: clientMessage
     }).save();
     
     if(val) {
@@ -43,12 +44,18 @@ const verifyCode = async (email, user, val) => {
                 <h2>Verification Link:</h2>
                 <p>Please click this <a href="${url}" target="_blank">link</a>.</p>
                 <br/>
-                <p>If that link doesn't work, please go to this try: ${url}</p> 
+                <p>If that link doesn't work, please go to this try: ${url}</p>
+                <br/>
+                <h3>Here is your original Message: </h3>
+                <span>
+                    ${clientMessage}
+                </span> 
             </div>
         `
     }
 
-    sendEmail(user, subject, msg)
+    sendEmail(user, subject, msg);
+
 }
 
 const sendEmail = async (user, subject,msg) => {

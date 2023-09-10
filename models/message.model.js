@@ -13,11 +13,11 @@ const Message = new mongoose.Schema({
     dateUpdated: Date,
     resolved: {
         type: Boolean,
-
+        default: false
     },
     from: {
         type: mongoose.Types.ObjectId,
-        ref: 'emailList'
+        ref: 'email'
     }
 });
 
