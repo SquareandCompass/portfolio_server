@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
-const { User } = require('../models');
+const { User, ValCode } = require('../models');
 const { validateSession } = require('../middleware');
 const {
     success,incomplete,error,token,passwordChange,verifyCode
@@ -63,14 +63,20 @@ router.put('/profile', validateSession, async (req,res) => {
         const returnOption = {new:true};
 
         let changePassword = info.newPassword ? bcrypt.compare(info.password, req.user.password) : null;
-        //TODO: need to fix the changing password within the profile route. Currently not working.
+
+        let updatedPassword;
+
+        if(changePassword) {
+            updatedPassword = bcrypt.hashSync(info.newPassword, 13);
+        }
 
         const updateInfo = {
             firstName: info.firstName,
             lastName: info.lastName,
             email: info.email,
             backupEmail: info.backupEmail,
-            password: changePassword ? bcrypt.hashSync(info.newPassword, 13) : null,
+            password: updatedPassword,
+            // password: changePassword ? bcrypt.hashSync(info.newPassword, 13) : null,
             facebook: info.facebook, 
             twitter: info.twitter, 
             gitHub: info.gitHub, 
@@ -88,7 +94,7 @@ router.put('/profile', validateSession, async (req,res) => {
 });
 
 //! Password Reset
-router.post('/password-reset', async(req,res) => {
+router.post('/password-reset-request', async(req,res) => {
     try {
         const {email} = req.body;
         const user = await User.findOne({email: email});
@@ -104,14 +110,26 @@ router.post('/password-reset', async(req,res) => {
     } catch (err) {
         error(res,err);
     }
-})
+});
 
-
-router.patch('/reset-password/:email/:code', async (req,res) => {
+router.patch('/reset-password/:email', async (req,res) => {
     try {
         
-        const { email, code } = req.params;
-        //TODO: Build out the logic of updating the user document.
+        const { email } = req.params;
+        const { code, password, passwordCheck} = req.body;
+
+        const codeCheck = await ValCode.findOne({email: email, code: code})
+        if(!codeCheck) throw new Error(`There is an issue with the provided code. Please input a correct code or request a new one.`);
+
+        if(password !== passwordCheck) throw new Error(`Please be sure that passwords match.`)
+
+        const updatePassword = {
+            password: bcrypt.hashSync(password, 13)
+        }
+
+        const userCheck = await User.findOneAndUpdate({email: email}, updatePassword, {new: true});
+
+        userCheck ? success(res, userCheck) : incomplete(res);
 
     } catch (err) {
         error(res,err);

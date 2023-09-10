@@ -25,7 +25,14 @@ const Email = new mongoose.Schema({
         type: String,
         default: "individual"
     }
+},{
+    virtuals: {
+        fullName: {
+            get() {
+                return `${this.firstName} ${this.lastName}`
+            }
+        },
+    }
 });
-// set virtuals for full name and other aspects that may be useful.
 
 module.exports = mongoose.model('email', Email);

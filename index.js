@@ -17,6 +17,7 @@ app.use(cors());
 
 //! Routes
 app.use('/admin', userController);
+
 // placeholder for individual routes
 
 //! Connections

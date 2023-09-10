@@ -12,28 +12,40 @@ const passwordChange = async (user,oldPass,newPass) => {
 const verifyCode = async (email, user, val) => {
 
     let url, subject, msg;
+    const eightDigitCode = Math.random().toString(36).substring(2,10);
 
+    const userName = await user.fullName;
+
+    const emailCode = new ValCode({
+        email, 
+        code: eightDigitCode,
+        ownerId: user._id
+    }).save();
+    
     if(val) {
-        const createCode = `${user.lastName}${user.emailList.length}${user.firstName}${Date.now()}`;
     
-        url = `${process.env.URL}/reset-password/${email}/${createCode}`;
-    
-        const emailCode = new ValCode({
-            email, code: createCode,
-            url,
-            ownerId: user._id
-        }).save();
-    
-        subject = "Portfolio Password Reset";
+        subject = "Portfolio Password Reset Code";
         msg = `
-            <p>Please click the <a href="${url}">link</a>.</p>
-            <br/>
-            <p>If the link doesn't work, please use this: ${url}</p>
+            <div>
+                <p>Greetings, ${userName}!</p>
+                <h3>Code: <h2>${eightDigitCode}</h2></h3>
+                <p>Please use the provided code to change your password. You will need to update your accout with a new password. This passcode is only available for <b>20 minutes</b>.</p>
+            </div>
         `
     }
 
     if(!val) {
-        //TODO: need to build out the process of email validation response.
+        //NOTE: Will need to include individual names stored within the email
+        url = `${process.env.URL}/validated/${eightDigitCode}`
+        subject = "Please Verify Your Email"
+        msg = `
+            <div>
+                <h2>Verification Link:</h2>
+                <p>Please click this <a href="${url}" target="_blank">link</a>.</p>
+                <br/>
+                <p>If that link doesn't work, please go to this try: ${url}</p> 
+            </div>
+        `
     }
 
     sendEmail(user, subject, msg)

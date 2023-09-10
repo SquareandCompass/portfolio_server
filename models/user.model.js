@@ -36,7 +36,30 @@ const User = new mongoose.Schema({
     avatar: String,
     logo: String,
     bio: String,
+},{
+    virtuals: {
+        fullName: { //NOTE: Testing
+            get() {
+                return `${this.firstName} ${this.lastName}`
+            }
+        },
+        socials: { //NOTE: Not tested
+            get() {
+                let arr = [];
+                
+                const addToArr = (social) => social ? arr.push(social) : null;
+                addToArr(this.facebook);
+                addToArr(this.twitter);
+                addToArr(this.gitHub);
+                addToArr(this.linkedIn);
+                addToArr(this.instagram);
+
+                return arr;
+            }
+        }
+    }    
 });
-// set virtuals for full name and other aspects that may be useful.
+
+// User.virtual('fullName').get(() => `${this.firstName} ${this.lastName}`);
 
 module.exports = mongoose.model('user', User);

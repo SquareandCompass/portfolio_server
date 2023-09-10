@@ -5,10 +5,6 @@ const ValidationCode = new mongoose.Schema({
         type: String,
         required: true
     },
-    url: {
-        type: String,
-        required: true,
-    },
     code: {
         type: String,
         required: true,
@@ -18,7 +14,10 @@ const ValidationCode = new mongoose.Schema({
         default: Date.now(),
         expires: 1200
     },
-    ownerId: String
+    ownerId: {
+        type: String,
+        required: true
+    }
 });
 
 module.exports = mongoose.model('validationCode', ValidationCode);
