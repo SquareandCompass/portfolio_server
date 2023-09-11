@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const { ValCode } = require('../models');
-const nodemailer = require('nodemailer');
+const { sendEmail } = require('./emails')
 
 const passwordChange = async (user,oldPass,newPass) => {
     let change;
@@ -13,6 +13,7 @@ const verifyCode = async (email, user, val, clientMessage) => {
 
     let url, subject, msg;
     const eightDigitCode = Math.random().toString(36).substring(2,10);
+    const year = new Date().getFullYear();
 
     const userName = await user.fullName;
 
@@ -36,56 +37,35 @@ const verifyCode = async (email, user, val, clientMessage) => {
     }
 
     if(!val) {
-        //NOTE: Will need to include individual names stored within the email
         url = `${process.env.URL}/validated/${eightDigitCode}`
         subject = "Please Verify Your Email"
         msg = `
-            <div>
+            <div style="border: 1px solid black; padding: .5em;">
+                <p>Greetings, ${userName}!</p>
+                <article>
+                    <p>Thank you for sending a message to me! This email is meant to help verify that you are, indeed, you. Once you have click the provided link below, the message will be sent to me.</p>
+                    <p>With that said, you can be sure that this should be the only time this will be needed. Once verified, you can send me messages as needed to keep that line of communication open. I look forward to working with you!</p>
+                </article>
+                <hr/>
                 <h2>Verification Link:</h2>
                 <p>Please click this <a href="${url}" target="_blank">link</a>.</p>
-                <br/>
-                <p>If that link doesn't work, please go to this try: ${url}</p>
-                <br/>
-                <h3>Here is your original Message: </h3>
+                <p>If that link doesn't work, please copy and paste this into your address bar of your browser: 
+                <br/>${url}</p>
+
+                <hr/>
+                <h4>Here is your original message: </h4>
                 <span>
                     ${clientMessage}
-                </span> 
+                </span>
+                <p>This is only for your reference and doesn't need to be updated moving forward.</p>
+                <p>Thank you for your time!</p>
+                <footer style="background-color: lightgrey; text-align: center;">ericjwinebrenner.com &copy; ${year} </footer>
             </div>
         `
     }
 
     sendEmail(user, subject, msg);
 
-}
-
-const sendEmail = async (user, subject,msg) => {
-
-    // Should have two types of emails, one to the admin for password reset and one for email verification after a client sends a message.
-
-    const fullName = `${user.firstName} ${user.lastName}`;
-    try {
-        
-        const transporter = nodemailer.createTransport({
-            service: process.env.SERVICE,
-            secure: true,
-            auth: {
-                user: process.env.USER,
-                pass: process.env.PASS
-            }
-        });
-
-        const email = await transporter.sendMail({
-            from: "Personal Portfolio",
-            to: user.email,
-            subject: subject,
-            html: msg
-        })
-
-        //Using an email variable if needing to access the transporter object.
-
-    } catch (err) {
-        console.error(err, "Email not sent.")
-    }
 }
 
 module.exports = {

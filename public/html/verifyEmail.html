@@ -1,0 +1,27 @@
+<!-- 
+    Need to think about how to pass in that dynamic data to return back proper HTML.
+    Would like to style it out.
+    NOTE: Currently not going anywhere at this time.
+-->
+
+<div style="border: 1px solid black; padding: .5em;">
+    <p>Greetings, ${userName}!</p>
+    <article>
+        <p>Thank you for sending a message to me! This email is meant to help verify that you are, indeed, you. Once you have click the provided link below, the message will be sent to me.</p>
+        <p>With that said, you can be sure that this should be the only time this will be needed. Once verified, you can send me messages as needed to keep that line of communication open. I look forward to working with you!</p>
+    </article>
+    <hr/>
+    <h2>Verification Link:</h2>
+    <p>Please click this <a href="${url}" target="_blank">link</a>.</p>
+    <p>If that link doesn't work, please copy and paste this into your address bar of your browser: 
+    <br/>${url}</p>
+
+    <hr/>
+    <h4>Here is your original message: </h4>
+    <span>
+        ${clientMessage}
+    </span>
+    <p>This is only for your reference and doesn't need to be updated moving forward.</p>
+    <p>Thank you for your time!</p>
+    <footer style="background-color: lightgrey; text-align: center;">ericjwinebrenner.com &copy; ${year} </footer>
+</div>
