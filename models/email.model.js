@@ -24,6 +24,9 @@ const Email = new mongoose.Schema({
     company: {
         type: String,
         default: "individual"
+    },
+    title: {
+        type: String,
     }
 },{
     virtuals: {
