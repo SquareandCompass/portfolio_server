@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 
 const sendEmail = async (user, subject,msg) => {
 
-    const fullName = `${user.firstName} ${user.lastName}`;
+    // const fullName = `${user.firstName} ${user.lastName}`;
     try {
         
         const transporter = nodemailer.createTransport({

@@ -4,4 +4,5 @@ module.exports = {
     Message: require('./message.model'),
     Email: require('./email.model'),
     BlackList: require('./blackList.model'),
+    Project: require('./project.model'),
 }
