@@ -1,0 +1,1082 @@
+{
+	"info": {
+		"_postman_id": "c67442cf-2902-4743-8bab-e3132dedfd02",
+		"name": "Profolio App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9753119"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Create Account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Eric\",\r\n    \"lastName\": \"Winebrenner\",\r\n    \"email\":\"ewinebrenner@protonmail.com\",\r\n    \"backupEmail\": \"eric@ericjwinebrenner.com\",\r\n    \"password\": \"Testtest1!\",\r\n    \"passwordCheck\":\"Testtest1!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/admin/create-account",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"admin",
+								"create-account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"name": "cache-control",
+								"sortOrder": 2,
+								"infoTitle": "We recommend using this header",
+								"info": "Postman added \"Cache-Control: no-cache\" as a precautionary measure to prevent the server from returning stale response when one makes repeated requests.\n\nYou can remove this header in the app settings or enter a new one with a different value.",
+								"allowedToToggle": false,
+								"disableEdit": true,
+								"previewSettingsLink": "Go to settings",
+								"key": "Cache-Control",
+								"value": "no-cache",
+								"system": true,
+								"type": "text"
+							},
+							{
+								"name": "postman-token",
+								"sortOrder": 3,
+								"infoTitle": "We recommend using this header",
+								"info": "The Postman-Token header appends a random UUID to every outgoing request. Postman adds this header for API developers to better debug requests sent and to ensure separate requests appear distinct to the receiving server.\n\nYou can remove this header in the app settings.",
+								"allowedToToggle": false,
+								"disableEdit": true,
+								"previewSettingsLink": "Go to settings",
+								"key": "Postman-Token",
+								"value": "<calculated when request is sent>",
+								"system": true,
+								"type": "text"
+							},
+							{
+								"name": "content-type",
+								"sortOrder": 4,
+								"infoTitle": "This header was automatically added",
+								"info": "The Content-Type header is added to help the server identify the media type of the request body that is present in this request.\n\nUse the request body tab to control the value or to remove this header.",
+								"allowedToToggle": true,
+								"disableEdit": true,
+								"previewSettingsLink": "Go to body",
+								"key": "Content-Type",
+								"value": "application/json",
+								"system": true,
+								"type": "text"
+							},
+							{
+								"name": "content-length",
+								"sortOrder": 5,
+								"infoTitle": "This header was automatically added",
+								"info": "The Content-Length header was added to indicate to the server the size of the request body that is added to this request. Server uses this value to parse the request body accurately.\n\nYou can remove the header or enter a new one with a different value.",
+								"allowedToToggle": true,
+								"disableEdit": true,
+								"previewSettingsLink": "Go to body",
+								"key": "Content-Length",
+								"value": "<calculated when request is sent>",
+								"system": true,
+								"type": "text"
+							},
+							{
+								"name": "host",
+								"sortOrder": 6,
+								"infoTitle": "We recommend using this header",
+								"info": "The Host header is added to identify the domain name for which a request is being sent to the server. This header is implicitly sent by every HTTP client.\n\nYou can remove the header or enter a new one with a different value. It is most likely that without this header, your request will return an HTTP 400 error.",
+								"allowedToToggle": true,
+								"disableEdit": true,
+								"key": "Host",
+								"value": "<calculated when request is sent>",
+								"system": true,
+								"type": "text"
+							},
+							{
+								"name": "user-agent",
+								"sortOrder": 7,
+								"infoTitle": "We recommend using this header",
+								"info": "The User-Agent header is added to help the server identify Postman as the HTTP requesting application or client.\n\nIt is recommended that this header be sent, but you can remove the header or enter a new one with a different value.",
+								"allowedToToggle": true,
+								"disableEdit": true,
+								"key": "User-Agent",
+								"value": "PostmanRuntime/7.32.1",
+								"system": true,
+								"type": "text"
+							},
+							{
+								"name": "accept",
+								"sortOrder": 8,
+								"infoTitle": "We recommend using this header",
+								"info": "The \"Accept: */*\" header is added to tell the server that Postman can understand and process all forms of response content types.\n\nIt is recommended that this header be sent, but you can remove the header or enter a new one with a different value.",
+								"allowedToToggle": true,
+								"disableEdit": true,
+								"key": "Accept",
+								"value": "*/*",
+								"system": true,
+								"type": "text"
+							},
+							{
+								"name": "accept-encoding",
+								"sortOrder": 9,
+								"infoTitle": "We recommend using this header",
+								"info": "The Accept-Encoding header is added to indicate to the server that Postman HTTP client supports a defined list of content-encoding or compression algorithms as response.\n\nYou can remove the header or enter a new one with a different value. Doing that may not accurately render the response within the app.",
+								"allowedToToggle": true,
+								"disableEdit": true,
+								"key": "Accept-Encoding",
+								"value": "gzip, deflate, br",
+								"system": true,
+								"type": "text"
+							},
+							{
+								"name": "connection",
+								"sortOrder": 10,
+								"infoTitle": "We recommend using this header",
+								"info": "Postman added the Connection header to indicate the server to keep the underlying network connection open once the current response is received. This allows Postman to reuse the same connection for faster response times in subsequent requests to the same server.\n\nYou can remove this header or enter a new one with a different value, such as `Connection: Close` to control this behaviour.",
+								"allowedToToggle": true,
+								"disableEdit": true,
+								"key": "Connection",
+								"value": "keep-alive",
+								"system": true,
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "text",
+								"id": 0
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"Testtest1!\",\r\n    \"newPassword\": \"Testtest1*\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/admin/profile",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"admin",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"ewinebrenner@protonmail.com\",\r\n    \"password\": \"Testtest1*\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/admin",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "password reset request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"ewinebrenner@protonmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/admin/password-reset-request",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"admin",
+								"password-reset-request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forgot password reset",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\":\"yso9fn21\",\r\n    \"password\": \"Testtest1!\",\r\n    \"passwordCheck\": \"Testtest1!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/admin/reset-password/:email",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"admin",
+								"reset-password",
+								":email"
+							],
+							"variable": [
+								{
+									"key": "email",
+									"value": "ewinebrenner@protonmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "// {\r\n//     \"password\": \"Testtest1!\",\r\n//     \"newPassword\": \"Testtest1*\"\r\n// }\r\n{\r\n    \"firstName\": \"Eric\",\r\n    \"lastName\": \"Winebrenner\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/admin/profile",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"admin",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Messages",
+			"item": [
+				{
+					"name": "admin routes",
+					"item": [
+						{
+							"name": "Update Message",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"resolved\": true,\r\n    \"adminNotes\": \"This customer is a piece of work\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/message/update/{{MESSAGEID}}",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"message",
+										"update",
+										"{{MESSAGEID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Msg",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/message/all",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"message",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Msg by Email",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/message/all/{{EMAILID}}",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"message",
+										"all",
+										"{{EMAILID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Single Message",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/message/{{MESSAGEID}}",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"message",
+										"{{MESSAGEID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Message",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/message/remove/{{MESSAGEID}}",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"message",
+										"remove",
+										"{{MESSAGEID}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "New Message",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"ejwinebrenner@gmail.com\",\r\n    // \"firstName\": \"E\",\r\n    // \"lastName\": \"Winebrenner\",\r\n    // \"title\": \"owner\",\r\n    // \"company\": \"contractor\",\r\n    \"message\": \"A message without all the other info\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/message",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"message"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Email",
+			"item": [
+				{
+					"name": "admin routes",
+					"item": [
+						{
+							"name": "Delete Email",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/email/client/{{EMAILID}}",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"email",
+										"client",
+										"{{EMAILID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Email",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"blogSub\":true,\r\n    \"notes\": \"This email is one of three different types for one client.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/email/client/{{EMAILID}}",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"email",
+										"client",
+										"{{EMAILID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Created Email",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"anna.m.winebrenner@gmail.com\",\r\n    \"firstName\": \"Anna\",\r\n    \"lastName\": \"Winebrenner\",\r\n    \"title\": \"freelancer\",\r\n    \"company\": \"contractor\",\r\n    \"validated\": true,\r\n    \"notes\": \"Added via admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/email",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"email"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Emails",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/email/all",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"email",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One Email",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/email/client/{{EMAILID}}",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"email",
+										"client",
+										"{{EMAILID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One by Company",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/email/clients/:company",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"email",
+										"clients",
+										":company"
+									],
+									"variable": [
+										{
+											"key": "company",
+											"value": "freelancer"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "validate email",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{VALIDATIONEMAIL}}",
+							"host": [
+								"{{VALIDATIONEMAIL}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sub Status",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"blogSub\":true,\r\n    \"notes\": \"This email is one of three different types for one client.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SUBSTATUS}}",
+							"host": [
+								"{{SUBSTATUS}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Email - by Client",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{CLIENTREMOVE}}",
+							"host": [
+								"{{CLIENTREMOVE}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Projects",
+			"item": [
+				{
+					"name": "admin routes",
+					"item": [
+						{
+							"name": "Get All Project",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/projects/all",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"projects",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One Project",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/projects/one/{{PROJECTID}}",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"projects",
+										"one",
+										"{{PROJECTID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Project",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Project 3\",\r\n    \"repoFrontEnd\": \"3-front.com\",\r\n    \"repoBackEnd\": \"3-back.com\",\r\n    \"url\": \"3.com\",\r\n    \"details\": \"Let's have a happy little tree in here. We don't want to set these clouds on fire. I'll go over the colors one more time that we use: Titanium white, Thalo green, Prussian blue, Van Dyke brown, Alizarin crimson, Sap green, Cad yellow, and Permanent red. Put it in, leave it alone. In painting, you have unlimited power. You have the ability to move mountains. Every day I learn.\",\r\n    \"logo\": \"logo.jpg\",\r\n    \"type\": \"ux/ui\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/projects/create",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"projects",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Project",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"details\": \"Automatically, all of these beautiful, beautiful things will happen. A fan brush is a fantastic piece of equipment. Use it. Make friends with it. If you overwork it you become a cloud killer. There's nothing worse than a cloud killer. Just think about these things in your mind and drop em' on canvas. We're trying to teach you a technique here and how to use it.\",\r\n    \"type\": \"backend\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/projects/update/:id",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"projects",
+										"update",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "6500b2b15bc8e26bc496fa8b"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Project - Admin",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/projects/remove/:id",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"projects",
+										"remove",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "6500b2df5bc8e26bc496fa91"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get all Project (display)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/projects/display",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"projects",
+								"display"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Project (display) Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/projects/view/:id",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"projects",
+								"view",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6500b2b15bc8e26bc496fa8b"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
