@@ -27,7 +27,8 @@ const Email = new mongoose.Schema({
     },
     title: {
         type: String,
-    }
+    },
+    notes: String
 },{
     virtuals: {
         fullName: {

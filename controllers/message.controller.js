@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Message, Email } = require('../models');
+const { Message, Email, BlackList, ValCode } = require('../models');
 const { validateSession } = require('../middleware')
 const { success, incomplete, error, verifyCode } = require('../utils');
 
@@ -12,6 +12,15 @@ router.post('/', async(req,res) => {
         let status;
 
         const returningEmail = await Email.findOne({email: email});
+        const checkBlackList = await BlackList.findOne({email: email});
+
+        if(checkBlackList !== null && checkBlackList.warnings === 5) {
+            // If an email is on the blacklist with a warning of 4 or greater, it will reject the message and remove the email from the email collection.
+            await Email.findOneAndDelete({email: email});
+
+            throw new Error(`Sorry, but messages from this email are no longer being accepted.`); 
+
+        }
 
         if(!returningEmail) {
             clientEmail = await new Email({
@@ -30,10 +39,29 @@ router.post('/', async(req,res) => {
             await Email.findByIdAndUpdate({_id: clientEmail._id}, {$push: {messages: status._id}})
 
         } else {
+
+            const checkValCounts = await ValCode.find({email: email});
+
+            // This checks to see how many validation attemps have been made within the 20 minute window.
+            if(checkValCounts.length > 2) {
+                const checkBlackList = await BlackList.findOne({email: email});
+                // If the count is greater than 2, it will place that email in the blacklist collection and track warnings & timestamps.
+                if(checkBlackList) {
+                    let info = {
+                        warnings: checkBlackList.warnings + 1
+                    }
+                    let today = new Date();
+                    await BlackList.findOneAndUpdate({email: email},info);
+                    await BlackList.findOneAndUpdate({email: email}, {$push: {warningDates: today}});
+                } else {
+                    await new BlackList({email});
+                }
+
+            }
+
             sendMessage = await verifyCode(clientEmail.email, clientEmail, false, message);
             status = `An email was sent to verify this email.`
 
-            //NOTE: Need to create an update for the email controller
         }
 
         status ? success(res, status) : incomplete(res);

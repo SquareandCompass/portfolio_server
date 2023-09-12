@@ -37,7 +37,16 @@ const verifyCode = async (email, user, val, clientMessage) => {
     }
 
     if(!val) {
-        url = `${process.env.URL}/validated/${eightDigitCode}`
+        console.log(user)
+        const blogSubStatus = user.blogSub ? 
+            `If you would like to unsubscribe to my blog, click <a href="${process.env.URL}/email/remove-blog/${email}" target="_blank">here</a>` :
+            `If you would like to subscribe to my blog, click <a href="${process.env.URL}/email/add-blog/${email}" target="_blank">here</a>`;
+
+        const letterSubStatus = user.newsLetterSub ? 
+            `If you would like to unsubscribe to my newsletter, click <a href="${process.env.URL}/email/remove-letter/${email}" target="_blank">here</a>` :
+            `If you would like to subscribe to my newsletter, click <a href="${process.env.URL}/email/add-letter/${email}" target="_blank">here</a>`;
+
+        url = `${process.env.URL}/email/validated/${eightDigitCode}`
         subject = "Please Verify Your Email"
         msg = `
             <div style="border: 1px solid black; padding: .5em;">
@@ -59,7 +68,12 @@ const verifyCode = async (email, user, val, clientMessage) => {
                 </span>
                 <p>This is only for your reference and doesn't need to be updated moving forward.</p>
                 <p>Thank you for your time!</p>
-                <footer style="background-color: lightgrey; text-align: center;">ericjwinebrenner.com &copy; ${year} </footer>
+                <footer 
+                    style="background-color: lightgrey; text-align: center; height: 75px; padding: .5rem;">
+                    ericjwinebrenner.com &copy; ${year}
+                    <br/> If you would like your email removed, please click <a href="${process.env.URL}/email/remove/${email}" target="_blank">here</a> 
+                    <br/> ${blogSubStatus} | ${letterSubStatus}
+                </footer>
             </div>
         `
     }

@@ -30,6 +30,7 @@ const Employment = new mongoose.Schema({
         type: Boolean,
         default: true
     },
+    avatar: String
 });
 
 module.exports = mongoose.model('employers', Employment);

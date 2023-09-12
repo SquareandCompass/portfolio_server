@@ -8,7 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 4001;
 const db = require('./db');
 const { 
-    userController, messageController 
+    userController, messageController, emailController
 } = require('./controllers');
 // placeholder for utils
 // placeholder for middleware
@@ -20,6 +20,7 @@ app.use(cors());
 //! Routes
 app.use('/admin', userController);
 app.use('/message', messageController);
+app.use('/email', emailController);
 // placeholder for individual routes
 
 //! Connections

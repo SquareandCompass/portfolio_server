@@ -36,6 +36,7 @@ const User = new mongoose.Schema({
     avatar: String,
     logo: String,
     bio: String,
+    resume: String,
 },{
     virtuals: {
         fullName: {
