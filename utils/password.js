@@ -22,6 +22,7 @@ const verifyCode = async (email, client, val, clientMessage) => {
         code: eightDigitCode,
         ownerId: client._id,
         message: clientMessage
+        //TODO how to handle files being included.
     }).save();
     
     if(val) {

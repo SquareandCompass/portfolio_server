@@ -17,6 +17,7 @@ router.post('/', async(req,res) => {
         if(checkBlackList !== null && checkBlackList.warnings === 5) {
             // If an email is on the blacklist with a warning of 4 or greater, it will reject the message and remove the email from the email collection.
             await Email.findOneAndDelete({email: email});
+            //TODO: If sent and already delete - then what?
 
             throw new Error(`Sorry, but messages from this email are no longer being accepted.`); 
 
@@ -54,7 +55,7 @@ router.post('/', async(req,res) => {
                     await BlackList.findOneAndUpdate({email: email},info);
                     await BlackList.findOneAndUpdate({email: email}, {$push: {warningDates: today}});
                 } else {
-                    await new BlackList({email});
+                    await new BlackList({email}).save();
                 }
 
             }
