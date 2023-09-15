@@ -6,6 +6,8 @@
 - Need to build out email responses after clients have sent a message / other responses.
 - MVP is set for v.1
 - Need to structure how to handle images.
+- AWS S3 connection
+![](./assets/temp/error%20msg.png)
 
 ## Employment
 - Double-check model

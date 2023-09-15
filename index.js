@@ -11,11 +11,12 @@ const db = require('./db');
 const { 
     userController, messageController, emailController, projectController
 } = require('./controllers');
-// placeholder for utils
+// const {  } = require('./utils');
 
 //! Middleware
 app.use(express.json());
 app.use(cors());
+// app.use(express.static('static')) // was originally for working from a local HTML doc may be needed with s3
 
 //! Routes
 app.use('/admin', userController);

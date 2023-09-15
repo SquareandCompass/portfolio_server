@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const { User, ValCode } = require('../models');
 const { validateSession } = require('../middleware');
 const {
-    success,incomplete,error,token,passwordChange,verifyCode
+    success,incomplete,error,token,verifyCode,s3
 } = require('../utils');
 const SECRET = process.env.JWT;
 
@@ -61,6 +61,8 @@ router.put('/profile', validateSession, async (req,res) => {
         const filter = {_id: req.user._id};
         const info = req.body;
         const returnOption = {new:true};
+        let avatarFileURL;
+        let logoFileURL;
 
         let changePassword = info.newPassword ? bcrypt.compare(info.password, req.user.password) : null;
 
@@ -70,18 +72,22 @@ router.put('/profile', validateSession, async (req,res) => {
             updatedPassword = bcrypt.hashSync(info.newPassword, 13);
         }
 
+        if(info.avatar) avatarFileURL = await s3();
+        if(info.logo) logoFileURL = await s3();
+
         const updateInfo = {
             firstName: info.firstName,
             lastName: info.lastName,
             email: info.email,
             backupEmail: info.backupEmail,
             password: updatedPassword,
-            // password: changePassword ? bcrypt.hashSync(info.newPassword, 13) : null,
             facebook: info.facebook, 
             twitter: info.twitter, 
             gitHub: info.gitHub, 
             linkedIn: info.linkedIn, 
             instagram: info.instagram,
+            avatar: avatarFileURL,
+            logo: logoFileURL 
         }
 
         const update = await User.findOneAndUpdate(filter, updateInfo, returnOption);
