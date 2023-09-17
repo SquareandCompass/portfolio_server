@@ -11,9 +11,19 @@ const s3 = new aws.S3({
     signatureVersion: 'v4'
 });
 
-async function uploadURL() {
-    const rawBytes = await crypto.randomBytes(16);
-    const fileName = rawBytes.toString('hex');
+//NOTE: Maybe...
+// const s3 = new aws.S3({
+//     credentials: {
+//         accessKeyId, secretAccessKey
+//     },
+//     region
+// })
+
+async function uploadURL(req,file) {
+
+    const fileObj = req.files[`${file}`][0];
+
+    const fileName = await crypto.randomBytes(32).toString('hex');
 
     const params = {
         Bucket: bucketName,
@@ -21,7 +31,19 @@ async function uploadURL() {
         Expires: 15 // link is available for 15 seconds.
     }
 
-    return await s3.getSignedUrlPromise('putObject', params);
+    // return await s3.getSignedUrlPromise('putObject', params);
+    req.s3 = await s3.getSignedUrlPromise('putObject', params);
+ 
+    // fileObj.url = req.s3;
+
+    await fetch(req.s3, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "multipart/form-data"
+        },
+        body: fileObj,
+    })
+
 }
 
 module.exports = uploadURL;
